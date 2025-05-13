@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,16 +53,19 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+				django: {
+					50: '#eef9f2',
+					100: '#d5f0df',
+					200: '#aee2c3',
+					300: '#79caa0',
+					400: '#44ad7b',
+					500: '#2d9462',
+					600: '#1c774d',
+					700: '#165f3e',
+					800: '#144c33',
+					900: '#123f2b',
+					950: '#09231a',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
