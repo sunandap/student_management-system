@@ -2,75 +2,125 @@
 import React from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { StatCard } from "@/components/dashboard/StatCard";
-import { ModelListCard } from "@/components/dashboard/ModelListCard";
-import { AppListCard } from "@/components/dashboard/AppListCard";
-import { Database, Package, Server, Users } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BookOpen, CalendarCheck, GraduationCap, Users } from "lucide-react";
+import { 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip as RechartsTooltip, 
+  ResponsiveContainer 
+} from 'recharts';
 
 const Index = () => {
   // Mock data - would be fetched from Django backend in a real application
   const stats = {
-    models: 15,
-    apps: 7,
-    endpoints: 23,
-    users: 42
+    students: 450,
+    courses: 8,
+    staff: 35,
+    attendanceRate: 92
   };
 
-  const mockModels = [
-    { name: "User", app: "auth", fields: 8, isAdmin: true },
-    { name: "Product", app: "store", fields: 12, isAdmin: true },
-    { name: "Order", app: "store", fields: 15, isAdmin: true },
-    { name: "Category", app: "store", fields: 5, isAdmin: false },
-    { name: "Profile", app: "accounts", fields: 10, isAdmin: true },
+  const courseEnrollmentData = [
+    { name: "Computer Science", students: 120 },
+    { name: "Information Technology", students: 100 },
+    { name: "Data Science", students: 80 },
+    { name: "Artificial Intelligence", students: 60 },
+    { name: "Cybersecurity", students: 50 },
+    { name: "Web Development", students: 40 },
   ];
 
-  const mockApps = [
-    { name: "admin", models: 1, isInstalled: true },
-    { name: "auth", models: 3, isInstalled: true },
-    { name: "contenttypes", models: 1, isInstalled: true },
-    { name: "sessions", models: 1, isInstalled: true },
-    { name: "store", models: 4, isInstalled: true },
-    { name: "accounts", models: 2, isInstalled: true },
-    { name: "api", models: 0, isInstalled: true },
+  const recentActivity = [
+    { id: 1, action: "New student registered", date: "10 minutes ago", user: "Sarah Johnson" },
+    { id: 2, action: "Attendance marked for CS101", date: "1 hour ago", user: "Prof. Williams" },
+    { id: 3, action: "New course added", date: "3 hours ago", user: "Admin" },
+    { id: 4, action: "Staff meeting scheduled", date: "Yesterday", user: "Dean Roberts" },
+    { id: 5, action: "Exam results published", date: "2 days ago", user: "Prof. Anderson" },
   ];
 
   return (
     <DashboardLayout>
       <div className="mb-8">
         <h1 className="text-3xl font-bold">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome to your Django app dashboard</p>
+        <p className="text-muted-foreground">Welcome to the Student Management System</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <StatCard 
-          title="Total Models" 
-          value={stats.models} 
-          icon={<Database className="h-4 w-4" />} 
-          description="Registered Django models"
-        />
-        <StatCard 
-          title="Applications" 
-          value={stats.apps} 
-          icon={<Package className="h-4 w-4" />} 
-          description="Installed Django apps"
-        />
-        <StatCard 
-          title="API Endpoints" 
-          value={stats.endpoints} 
-          icon={<Server className="h-4 w-4" />} 
-          description="Available API routes"
-        />
-        <StatCard 
-          title="Users" 
-          value={stats.users} 
+          title="Total Students" 
+          value={stats.students} 
           icon={<Users className="h-4 w-4" />} 
-          description="Registered users"
-          trend={{ value: 12, label: "this month", positive: true }}
+          description="Registered students"
+          trend={{ value: 5, label: "this month", positive: true }}
+        />
+        <StatCard 
+          title="Courses" 
+          value={stats.courses} 
+          icon={<BookOpen className="h-4 w-4" />} 
+          description="Active courses"
+        />
+        <StatCard 
+          title="Staff Members" 
+          value={stats.staff} 
+          icon={<GraduationCap className="h-4 w-4" />} 
+          description="Academic staff"
+        />
+        <StatCard 
+          title="Attendance Rate" 
+          value={`${stats.attendanceRate}%`} 
+          icon={<CalendarCheck className="h-4 w-4" />} 
+          description="Average attendance"
+          trend={{ value: 2, label: "this week", positive: true }}
         />
       </div>
 
       <div className="grid gap-6 md:grid-cols-6 mt-8">
-        <ModelListCard models={mockModels} />
-        <AppListCard apps={mockApps} />
+        <Card className="col-span-6 md:col-span-4">
+          <CardHeader>
+            <CardTitle>Course Enrollment</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={courseEnrollmentData}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <RechartsTooltip />
+                  <Bar dataKey="students" fill="#3b82f6" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="col-span-6 md:col-span-2">
+          <CardHeader>
+            <CardTitle>Recent Activity</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {recentActivity.map((activity) => (
+                <div key={activity.id} className="border-b pb-2 last:border-0">
+                  <div className="font-medium">{activity.action}</div>
+                  <div className="text-sm text-muted-foreground">
+                    by {activity.user} · {activity.date}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </DashboardLayout>
   );

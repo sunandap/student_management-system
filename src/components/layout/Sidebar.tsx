@@ -6,11 +6,12 @@ import {
   Database,
   LayoutDashboard,
   Settings,
-  Package,
   Users,
-  FileCode,
+  BookOpen,
+  UserCheck,
+  CalendarCheck,
+  GraduationCap,
   Command,
-  Server,
 } from "lucide-react";
 
 export function Sidebar() {
@@ -20,16 +21,15 @@ export function Sidebar() {
         <div className="flex items-center justify-center w-8 h-8 rounded-sm bg-primary">
           <Command className="w-5 h-5 text-primary-foreground" />
         </div>
-        <h1 className="text-xl font-bold">Django App Forge</h1>
+        <h1 className="text-xl font-bold">Student Management</h1>
       </div>
       
       <nav className="space-y-1">
         <NavItem to="/" icon={<LayoutDashboard className="h-4 w-4" />} label="Dashboard" />
-        <NavItem to="/apps" icon={<Package className="h-4 w-4" />} label="Applications" />
-        <NavItem to="/models" icon={<Database className="h-4 w-4" />} label="Models" />
-        <NavItem to="/api" icon={<Server className="h-4 w-4" />} label="API Endpoints" />
-        <NavItem to="/users" icon={<Users className="h-4 w-4" />} label="Users" />
-        <NavItem to="/code" icon={<FileCode className="h-4 w-4" />} label="Code Editor" />
+        <NavItem to="/students" icon={<Users className="h-4 w-4" />} label="Students" />
+        <NavItem to="/courses" icon={<BookOpen className="h-4 w-4" />} label="Courses" />
+        <NavItem to="/staff" icon={<GraduationCap className="h-4 w-4" />} label="Staff" />
+        <NavItem to="/attendance" icon={<CalendarCheck className="h-4 w-4" />} label="Attendance" />
         <NavItem to="/settings" icon={<Settings className="h-4 w-4" />} label="Settings" />
       </nav>
     </div>
